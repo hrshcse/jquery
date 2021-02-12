@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Add / Remove Table Rows Dynamically</title>
+<style>
+    #tab {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tab td, #tab th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tab tr:nth-child(even){background-color: #f2f2f2;}
+
+#tab tr:hover {background-color: #ddd;}
+
+#tab th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+ select {
+  width: 57%;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input, textarea {
+  width: 55%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+button{
+	background-color:blue;
+	padding:10px;
+}
+label {
+  border-right:6px;
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+  display: inline-block;
+}
+</style>
+</style>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+
+var formdata;
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+            var barcode = $('#barcode').val();          
+            var type=$('#type').val();
+            var price=$('#price').val();
+            var item=$('#item').val();
+            var qty=$('#qty').val();
+
+
+            //get this variable form data 
+           formdata=$("#myf").serialize();
+           console.log(formdata);
+          
+    
+            if(qty==''||item==''||price==''||type==''||barcode=='')
+            {
+            	alert("fill all the fields");
+document.getElementById("myf").style.display="block";
+            }
+            else
+            {
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>"+barcode+"</td><td>"+type+"</td><td>"+item+"</td><td>"+price+"</td><td>"+qty+"</td></tr>";
+            $("#tbod").append(markup);
+             console.log(markup);}
+        });
+       
+        // Find and remove selected table rows
+         $(".delete-row").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+                if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+        
+    });   
+    function funform()
+    {
+    	document.getElementById("myf").style.display="block";
+    }
+</script>
+</head>
+<body>
+   
+    <table id="tab">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>barcode</th>
+                <th>type</th>
+                <th>item name</th>
+                <th>price</th>
+                <th>quantity</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbod">
+           
+        </tbody>
+    </table>  
+
+     <form  id="myf" style="display:none;">
+    <fieldset>
+     	<label for="barcode">barcode</label>
+        <input type="text" id="barcode" placeholder="enter the barcode" required="required">
+        <br>
+        <label for="type">select type</label>
+        <select id="type" required>
+        	<option value="sweet">sweet</option>
+        	<option value="karam">karam</option>
+        	<option value="juice">juice</option>
+        	<option value="tiffen">tiffen</option>
+        	<option value="fastfood">fastfood</option>
+        </select><br>
+        <label for="item" >item</label>
+        <input type="text" id="item" placeholder="enter the item" required><br>
+        <label for="price">price</label>
+        <input type="number" id="price" placeholder="enter the price" required><br>
+        <label for="qty">qty</label>
+<input type="number" id="qty" placeholder="enter the qty" required><br>
+    	<button style="margin-left:90%" type="button" class="add-row"  onclick='document.getElementById("myf").style.display="none";'>add</button>
+    	<button " onclick='document.getElementById("myf").style.display="none";'>cancel</button>
+  </fieldset>  </form>
+    <button type="button" class="delete-row">Delete Row</button>
+    <button onclick="funform()">add new</button>
+</body> 
+</html>           
+
+
+
+<!--<form enctype='application/json' onsubmit="myfun()">
+  <input name='name' value='Bender'>
+  <select name='hind'>
+    <option selected>Bitable</option>
+    <option>Kickable</option>
+  </select>
+  <input type='checkbox' name='shiny' checked>
+  <input type="submit" name="submit">
+</form>
+
+
+<script>
+       function	myfun(data)
+	{
+		alert("done");
+		console.log(data);
+	}
+</script>  -->
+
+             
